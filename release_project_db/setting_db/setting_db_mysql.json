@@ -1,7 +1,7 @@
 {
-    "host": "localhost",
-    "user": "admin01",
-    "password": "MyNewAsusX509Z-01",
-    "database": "work",
-    "table": "book"
+    "host": "",
+    "user": "",
+    "password": "",
+    "database": "",
+    "table": ""
 }
