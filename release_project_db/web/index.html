@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="/eel.js"></script>
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/w3.css">
+    <title>Головна сторінка програми</title>
+</head>
+<body class="bg">
+    <div class="container-fluid mt-3">
+        <div class="row">
+            <div class="col-12">
+                <div class="tab">
+                    <button class="tablinks" onclick="openCity(event, 'London')" id="defaultOpen"><img src="img/home.png" alt="" width="35px" height="auto"> Головна</button>
+                    <button class="tablinks" onclick="openCity(event, 'Paris')"><img src="img/toolbox.png" alt="" width="35px" height="auto"> Редагування</button>
+                    <button class="tablinks" onclick="openCity(event, 'Setting')"><img src="img/settings.png" alt="" width="35px" height="auto"> Налаштування</button>
+                    <button class="tablinks" onclick="openCity(event, 'About')"><img src="img/support.png" alt="" width="35px" height="auto"> Технічна підтримка</button>
+                  </div>
+
+
+                <!--Домашня вклдка-->
+                  <div id="London" class="tabcontent">
+                    <input type="button" class="btn btn-secondary" onclick="clc()" value="Показати">
+                    <input type="button" class="btn btn-secondary" onclick="del_clc()" value="Закрити таблицю">
+                    <input type="button" class="btn btn-secondary" onclick="export_from_exel_js()" value="Експортувати в exel">
+                    <div class="container mt-3">
+                      <div class="row">
+                        <div class="12">
+                          <table id="contents" class="table">
+                            <!-- ТУТ ПОКАЗУЄТЬСЯ КОНТЕНТ З БАЗИ ДАННИХ -->
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+
+
+                  <!-- Вкладка (Редагування) -->
+                  <div id="Paris" class="tabcontent">
+                    <input type="button" class="btn btn-secondary" onclick="edit_db()" value="Редагувати базу данних">
+                    <input type="button" class="btn btn-secondary" onclick="del_edit_db()" value="Закрити таблицю">
+                    
+                    <div class="container mt-3">
+                      <div class="row">
+                        <div class="12" id="insert-table">
+                          
+                        </div>
+                      </div>
+                    </div>
+                    <input type="button" class="btn btn-secondary" onclick="Sending_the_base_to_the_python()" value="Зберегти базу данних">
+                    <input type="button" class="btn btn-secondary" onclick="button_add_row()" value="Додати рядок">
+                  </div>
+                  
+
+
+                  <!-- ВКЛАДКА НАЛАШТУВАННЯ -->
+                  <div id="Setting" class="tabcontent">
+                    
+                    <div class="container">
+                      <div class="row">
+
+                      
+                    <div class="col-6">
+                      <h3>Налаштування</h3>
+                        <form id="my_form">
+                        <div class="mb-3">
+                            <input type="text" class="form-control" id="host" placeholder="Host">
+                        </div>
+                        <div class="mb-3">
+                            <input type="text" class="form-control" id="user" placeholder="User">
+                        </div>
+                        <div class="mb-3">
+                            <input type="text" class="form-control" id="database" placeholder="Database">
+                        </div>
+                        <div class="mb-3">
+                            <input type="text" class="form-control" id="password" placeholder="Password">
+                        </div>
+                        
+                        <input type="button" class="btn btn-light" onclick="set_setting_db()" value="Save db">
+                       
+                        </form>
+                    </div>
+                    <div class="col-6">
+                      <h3>Поточні налаштування</h3>
+                      <p id="saved-host" class="alert alert-info pt-1 pb-1"></p>
+                      <p id="saved-user" class="alert alert-info pt-1 pb-1"></p>
+                      <p id="saved-database" class="alert alert-info pt-1 pb-1"></p>
+                      <p id="saved-password" class="alert alert-danger pt-1 pb-1"></p>
+                    </div>
+
+                    <div class="mt-2" role="alert" id="show-alert-tables">
+                      <h3 class="alert-heading" id="STATUS-INFO"></h3>
+                      <hr>
+                      
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            
+            <!--СТОРІНКА ПРО ПРОГРАМУ-->
+            <div id="About" class="tabcontent">
+              <h3>ПРО ПРОГРАМУ</h3>
+              <div class="container mt-3">
+                <div class="row">
+                  <div class="12">
+                      <p id="p1">
+                      <script>
+                        p1 = document.getElementById('p1');
+                        p1.innerHTML = '';
+                      </script>
+                      
+                      <ul>
+                        <li>
+                          В налаштуваннях треба зробити щоб було перепідключеня після того як була натиснута
+                          кнопка "Зберегти".
+                        </li>
+                        
+                        <li>
+                          зробити кнопку на експорт бази в ексель
+                        </li>
+                        <li>
+                          в редагуванні зробити щоб можна було додавати рядки в базу.
+                        </li>
+                       
+                      </ul>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            
+        </div>
+      </div>
+    </div>
+        
+   
+    <script>
+      // ###############################################
+      // РОЗДІЛ ВІДПОВІДАЛЬНИЙ ЗА ВКЛАДКУ НАЛАШТУВАННЯ #
+      // ###############################################
+
+      // ОБРОБКА НАТИСКАННЯ НА КНОПКУ З НАЗВОЮ ТАБЛИЦІ
+      function tws(valueButton){
+        value_button = valueButton.value;
+        eel.accepts_the_table_name(value_button);
+        status_connect = document.getElementById("STATUS-INFO");
+        status_connect.innerHTML = "Поточна таблиця: " + value_button;
+      }
+
+      // ПОКАЗУЄ ПОТОЧНІ НАЛАШТУВАННЯ ЯКІ ЗАНЕСЕНІ В ФАЙЛ JSON (КОЛОНКА З ПРАВА)
+      eel.expose(show_cerrent_settings_db);
+      function show_cerrent_settings_db(current_settings){
+        show_host = document.getElementById('saved-host');
+        show_user = document.getElementById('saved-user');
+        show_database = document.getElementById('saved-database');
+        show_password = document.getElementById('saved-password');
+        
+        show_host.innerHTML = current_settings[0];
+        show_user.innerHTML = current_settings[1];
+        show_database.innerHTML = current_settings[2];
+        show_password.innerHTML = current_settings[3];
+      }
+
+      // ПОКАЗУЄ ЧИ ПІДКЛЮЧЕНО ДО БАЗИ ДАННИХ, ЯКЩО ТАК ТО ВИВОДЯТЬСЯ КНОПКИ З НАЗВАМИ ТАБЛИЦЬ
+      eel.expose(show_current_settings)
+      function show_current_settings(status_code, table_name, current_table){
+        ttt = document.getElementById('STATUS-INFO');
+        let kkl = table_name;
+        let div_root = document.getElementById('show-alert-tables');
+        if (status_code == 200){
+          div_root.setAttribute('class', 'alert alert-success mt-3');
+          for (let t_m of table_name){
+            let create_btn = document.createElement("INPUT");
+            let select_table = current_table;
+            ttt.innerHTML = "Поточна таблиця: " + select_table; 
+            create_btn.setAttribute("type", "button");
+            create_btn.setAttribute("class", "test-button");
+            create_btn.setAttribute("onClick", "tws(this)")
+            create_btn.setAttribute("value", t_m);
+            div_root.appendChild(create_btn);
+          }
+        }
+        else{
+          div_root.setAttribute("class", "alert alert-danger mt-3");
+          ttt.innerHTML = 'Немає підключення';
+        }
+      }
+      
+      // Функція додавання в базу та виводу в "поточні налаштування"
+      function set_setting_db(){
+          var host = document.forms["my_form"].elements["host"].value;
+          var user = document.forms["my_form"].elements["user"].value;
+          var database = document.forms["my_form"].elements["database"].value;
+          var password = document.forms["my_form"].elements["password"].value;
+          eel.setting_db(host, user, database, password);
+  
+          show_host = document.getElementById('saved-host');
+          show_user = document.getElementById('saved-user');
+          show_database = document.getElementById('saved-database');
+          show_password = document.getElementById('saved-password');
+          
+          show_host.innerHTML = host;
+          show_user.innerHTML = user;
+          show_database.innerHTML = database;
+          show_password.innerHTML = password;
+        }
+
+    //  #####################################
+    //  ВІДПОВІДАЄ ЗА ПЕРЕКЛЮЧЕННЯ ВКЛАДОК  #
+    //  #####################################
+    let VISIBLE_CURRENT_TABLE = false;
+     async function openCity(evt, cityName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+          tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+          tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(cityName).style.display = "block";
+        evt.currentTarget.className += " active";
+        if (cityName == 'Setting'){
+          if (VISIBLE_CURRENT_TABLE == false){
+            VISIBLE_CURRENT_TABLE = true;
+            eel.show_current_setting(); // Поточні налаштуванян з json
+            eel.get_sett();
+          }
+        }
+        }
+        document.getElementById("defaultOpen").click();
+
+
+        // ФУНКЦІЯ ЗБИРАННЯ ТА ВІДПРАВКИ БАЗИ ДАННИХ В ПАЙТОН
+        function Sending_the_base_to_the_python(){
+          alert(data);
+          // Кількість колонок
+          let number_of_columns = data[0].length;
+          // Кількість рядків у базі данних
+          let all_rows_in_the_database = data.length;
+          // Масив з усіма записами бази данних
+          let array_with_database_records = [];
+          // Об'єкт з усіма записами бази данних взятий з HTML сторінки
+          let all_elements_of_the_database_with_html = document.querySelectorAll('#gg');
+          
+          // Цикл який додає елементи з об'єкту в масив з усіма записами
+          for(var one_element of all_elements_of_the_database_with_html){
+            array_with_database_records.push(one_element.value);
+          }
+
+          // Довжина масиву з усіма записами
+          let the_length_of_the_array_with_all_records = array_with_database_records.length;
+          // Подвійний масив
+          let double_array = [];
+          // Ітерації циклу while
+          let i = 0
+          // Індекс циклу з усіма записами
+          array_index_with_all_records = 0;
+          // Допомієний масив
+          let auxiliary_array = [];
+          
+          // Цикл проходження по рядках бази
+          while(i <= all_rows_in_the_database -1){
+
+            // Цикл проходження по колонках бази
+            for(let j = 0; j < number_of_columns; j++){
+              // Якщо індекс масиву з усіма елементами менший за його довжину 
+              // то виконується приєднання елементу до допоміжного масиву
+              
+              if (array_index_with_all_records <= the_length_of_the_array_with_all_records){
+                auxiliary_array.push(array_with_database_records[array_index_with_all_records]);
+                array_index_with_all_records++;
+              } 
+            }
+            
+            // Додаються елементи з допоміжного масиву у подвійний, 
+            // зразу з усіх колонок, таким чином виходить подвійний масив.
+            double_array.push(auxiliary_array);
+            // Очищається допоміжний масив для нових елементів
+            auxiliary_array = [];
+            i++;
+          }
+
+          // Викликається функція з пайтона та передається масив з данними
+          eel.update_value_db(double_array);
+          
+        }
+
+        eel.expose(send_ok);
+        function send_ok(){
+          alert("Зміни внесено")
+        }
+        
+        </script>
+        <script src="js/tab-home.js"></script>
+        <script src="js/tab-edit.js"></script>
+        <script src="js/export.js"></script>
+</body>
+</html>
