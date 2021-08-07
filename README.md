@@ -3,7 +3,7 @@
 ## Написана на мові Python, бібліотека eel.
 ### УВАГА програма не призначена для професійного використання адміністраторами баз даних.
 ______
-![img](https://images.wallpaperscraft.ru/image/kod_stroki_programmirovanie_130775_1280x720.jpg)
+![img](https://github.com/Patriot777/python_eel_mysql/blob/main/header_md/header.png)
 
 ### Встановлення
 1. Для роботи у програмі у вас повинен бути встановлений браузер Chrome, [завантажити можна тут](https://www.google.com/chrome/?brand=BNSD&gclid=CjwKCAjw3riIBhAwEiwAzD3TiUO7b8yjsiC1Py8bazCA3BG0fLeArFPW1SwbF5u3f9MRBTw7ggFyeBoCyhAQAvD_BwE&gclsrc=aw.ds)
