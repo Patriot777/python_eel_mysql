@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Krona+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300&display=swap');
+
+h1{
+    font-family: 'Krona One', sans-serif;
+}
+
+.bg-greeting{
+    background-color: rgb(34, 34, 34);
+    color: rgb(196, 196, 196);
+}
+
+
+#p1{
+    font-size: 14pt;
+    font-family: 'Merriweather', serif;
+}
+.tab{
+    font-size: 16pt;
+    font-family: 'Times New Roman';
+    font-weight: bold;
+}
+
+.test-button{
+    color: rgb(255, 255, 255);
+    border-radius: 8px;
+    padding: 10px 10px;
+    background-color: rgb(25, 157, 180);
+    font-size: 14pt;
+    border: none;
+    margin-left: 10px;
+}
+li{
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 14pt;
+}
+
+.bg{
+    background-image: url('/web/img/back.jpg');
+    background-size: cover;
+}
+.button{
+    background-color: #f44336;
+}
